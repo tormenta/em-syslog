@@ -194,8 +194,10 @@ module EventMachine
       answer = [ resource[0..(split_point-1)].to_sym, resource[(split_point+1)..-1]]
       split_point = answer[1].index(':')
       if split_point.nil? == false and split_point > 0
-        answer << answer[1][(split_point+1)..-1]
+        answer << answer[1][(split_point+1)..-1].to_i
         answer[1] = answer[1][0..(split_point-1)]
+      elsif split_point.nil? and answer[0] != :unix
+        answer << 514
       elsif split_point.nil? == false
         raise "Resource parse error"
       else
