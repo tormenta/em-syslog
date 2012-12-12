@@ -143,7 +143,7 @@ module EventMachine
       when :unix
         # need better checking here
         raise "unix domain socket #{resource[1]} does not exist!" unless ::File.exists?( resource[1])
-        connection = Syslog::ConnectionUDP.create_unix
+        @connection = Syslog::ConnectionUDP.create_unix
         resource << @connection
         @connection = EM.watch( @connection, Syslog::ConnectionUDP)
       when :tcp
@@ -151,6 +151,7 @@ module EventMachine
       else
         @connection = EM.open_datagram_socket( '0.0.0.0', 0, Syslog::ConnectionUDP)
       end
+      raise "unable to create connection" if @connection.nil?
       resource.shift
       @connection.setup( *resource)
     end
