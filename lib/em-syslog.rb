@@ -173,7 +173,7 @@ module EventMachine
         define_method( "#{facility}_#{severity}".to_sym) do |msg|
           log( msg, facility, severity, false)
         end
-        Syslog.class_variable_set("@@syskey_#{facility}_#{severity}".to_sym, (facility_int * 8 + severity_int))
+        self.class_variable_set("@@syskey_#{facility}_#{severity}".to_sym, (facility_int * 8 + severity_int))
       }
     }
 
