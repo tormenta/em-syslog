@@ -1,5 +1,6 @@
 
 require 'socket'
+require 'rubygems'
 require 'eventmachine'
 
 module EventMachine
