@@ -156,7 +156,7 @@ module EventMachine
       @connection.setup( *resource)
     end
 
-    def log( msg, severity, facility, debug=true)
+    def log( msg, facility, severity, debug=true)
       m = String.new
       if debug
         raise "Invalid log severity!" unless Syslog::SEVERITIES.has_key? severity
