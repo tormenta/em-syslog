@@ -199,7 +199,7 @@ module EventMachine
       elsif split_point.nil? == false
         raise "Resource parse error"
       else
-        answer[1].slice!(1..-1)
+        answer[1].slice!(0)
         answer << nil
       end
       answer
