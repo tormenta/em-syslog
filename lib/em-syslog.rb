@@ -162,7 +162,7 @@ module EventMachine
         raise "Invalid log severity!" unless Syslog::SEVERITIES.has_key? severity
         raise "Invalid log facility!" unless Syslog::FACILITIES.has_key? facility
       end
-      m += "<" + self.class.class_variable_get("@@syskey_#{facility}_#{severity}".to_sym) + ">"
+      m += "<" + self.class.class_variable_get("@@syskey_#{facility}_#{severity}".to_sym).to_s + ">"
       m += self.class.timestamp + " " + ::Socket.gethostname + " #{@idenity} " + msg.to_s
       @connection.send_msg( m)
     end
