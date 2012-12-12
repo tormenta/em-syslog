@@ -1,6 +1,5 @@
 
 require 'socket'
-require 'file'
 require 'eventmachine'
 
 module EventMachine
