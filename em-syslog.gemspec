@@ -9,6 +9,6 @@ Gem::Specification.new do |s|
 
   s.files = [ "lib/em-syslog.rb" ]
   s.add_dependency('eventmachine', '>= 0.12.10')
-  s.required_paths << %q{lib}
+  s.require_paths << %q{lib}
   s.summary = %q{Simple Logger Class For Eventmachine Applications}
 end
