@@ -2,6 +2,10 @@ em-syslog
 =========
 Easy to use interface for syslogging both for remote and local Linux/BSD systems.
 
+Install
+=========
+*Via RubyGems.rog
+# gem install em-syslog-logger
 
 License
 =========
