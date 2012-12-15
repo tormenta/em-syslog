@@ -120,6 +120,7 @@ module EventMachine
 
   class Logger
     @@connection_cache = Hash.new
+    @@hostname = ::Socket.gethostname.split('.')[0]
     attr_reader :idenity, :resource
 
     # Yup hack new class method for cache candy
@@ -139,17 +140,17 @@ module EventMachine
       @resource = resource
       resource = self.class.parse_resource( resource)
 
-      case resource[0]
+      @connection = case resource[0]
       when :unix
         # need better checking here
         raise "unix domain socket #{resource[1]} does not exist!" unless ::File.exists?( resource[1])
-        @connection = Syslog::ConnectionUDP.create_unix
-        resource << @connection
-        @connection = EM.watch( @connection, Syslog::ConnectionUDP)
+        connection = Syslog::ConnectionUDP.create_unix
+        resource << connection
+        EM.watch( connection, Syslog::ConnectionUDP)
       when :tcp
-        @connection = EM.connect( resource[1], resource[2], Syslog::ConnectionTCP)
+        EM.connect( resource[1], resource[2], Syslog::ConnectionTCP)
       else
-        @connection = EM.open_datagram_socket( '0.0.0.0', 0, Syslog::ConnectionUDP)
+        EM.open_datagram_socket( '0.0.0.0', 0, Syslog::ConnectionUDP)
       end
       raise "unable to create connection" if @connection.nil?
       resource.shift
@@ -163,7 +164,7 @@ module EventMachine
         raise "Invalid log facility!" unless Syslog::FACILITIES.has_key? facility
       end
       m += "<" + self.class.class_variable_get("@@syskey_#{facility}_#{severity}".to_sym).to_s + ">"
-      m += self.class.timestamp + " " + ::Socket.gethostname + " #{@idenity} " + msg.to_s
+      m += self.class.timestamp + " " + self.class.hostname + " #{@idenity}: " + msg.to_s
       @connection.send_msg( m)
     end
 
@@ -176,14 +177,24 @@ module EventMachine
         self.class_variable_set("@@syskey_#{facility}_#{severity}".to_sym, (facility_int * 8 + severity_int))
       }
     }
+    Syslog::SEVERITIES.each {|severity,severity_int|
+      define_method( severity) do |*args|
+        raise "Invalid number of arguments" if msg.length < 1 or msg.length > 2
+        log( args[0], ((args.length == 2) ? args[1] : :daemons), severity, false)
+      end
+    }
 
-    private
     def self.timestamp( time=Time.now)
       day = time.strftime("%d")
       day = day.sub(/^0/, ' ') if day =~ /^0\d/
       time.strftime("%b #{day} %H:%M:%S")
     end
 
+    def self.hostname
+      return @@hostname
+    end
+
+    private
     # Likely not the fastest and best way to make a cache index
     def self.mk_cache_index_key( idenity, resource)
      idenity.to_s + resource.split(':').each {|i| i.gsub(/\./,'') }.join
