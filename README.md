@@ -4,7 +4,7 @@ Easy to use interface for syslogging both for remote and local Linux/BSD systems
 
 Install
 =========
-*Via RubyGems.rog
+* RubyGems.rog
 > gem install em-syslog-logger
 
 Upgrading 0.0.1 -> 0.0.2
@@ -15,22 +15,22 @@ All other sugar is just he same, but backend locks has been changed around.
 
 Usage
 =========
->DEFAULTS = {:idenity => $PROGRAM_NAME,
->            :include_hostname => false,
->            :resource => "udp:/dev/log"
->           }
+> DEFAULTS = {:idenity => $PROGRAM_NAME,
+>             :include_hostname => false,
+>             :resource => "udp:/dev/log"
+>            }
 *resource = tcp:(<abs_path>|//host|//host:port)|udp:(<abs_path>|//host|//host:port)
 *include_hostname = some sysloggers seem to insert this just fine other will not
 
 Example
 =========
->EM.run {
->  logger = EM::Syslog.logger( {:idenity => "em-syslog-test"})
->  EM.next_tick {
->    logger.log( "TEST INFO", :daemons, :info)
->    logger.mail_error( "MAIL ERROR")
->  }
->}
+> EM.run {
+>   logger = EM::Syslog.logger( {:idenity => "em-syslog-test"})
+>   EM.next_tick {
+>     logger.log( "TEST INFO", :daemons, :info)
+>     logger.mail_error( "MAIL ERROR")
+>   }
+> }
 
 
 License
