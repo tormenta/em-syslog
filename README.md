@@ -10,7 +10,7 @@ Install
 Upgrading 0.0.1 -> 0.0.2
 =========
 API Change
-You most supply a config hash or nothing arugments on logger creation
+You most supply a config hash or nothing for arugments on logger creation
 Resource pattern has been updated see "Usage"
 All other sugar is the same as before, but backend class struct changed around a bit.
 
