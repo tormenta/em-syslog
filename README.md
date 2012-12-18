@@ -19,8 +19,8 @@ Usage
 >            :include_hostname => false,
 >            :resource => "udp:/dev/log"
 >           }
-*resource := tcp:(<abs_path>|//host|//host:port)|udp:(<abs_path>|//host|//host:port)
-*include_hostname := some sysloggers seem to insert this just fine other will not
+*resource = tcp:(<abs_path>|//host|//host:port)|udp:(<abs_path>|//host|//host:port)
+*include_hostname = some sysloggers seem to insert this just fine other will not
 
 Example
 =========
@@ -60,4 +60,4 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 The views and conclusions contained in the software and documentation are those
 of the authors and should not be interpreted as representing official policies, 
-either expressed or implied, of the Digital Akasha.
+either expressed or implied, of Digital Akasha.
