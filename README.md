@@ -7,7 +7,7 @@ Install
 * RubyGems.org
 > gem install em-syslog-logger
 
-Upgrading 0.0.1 -> 0.0.2
+Upgrading 0.0.1 -> 0.0.2+
 =========
 API Change
 You most supply a config hash or nothing for arugments on logger creation

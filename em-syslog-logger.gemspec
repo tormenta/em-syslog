@@ -1,6 +1,8 @@
+require 'lib/em-syslog/version.rb'
+
 Gem::Specification.new do |s|
   s.name = %q{em-syslog-logger}
-  s.version = "0.0.2"
+  s.version = EventMachine::Syslog::VERSION
 
   s.authors << %q{Digital Akasha}
   s.date = %q{2012-12-12}
