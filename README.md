@@ -9,9 +9,10 @@ Install
 
 Upgrading 0.0.1 -> 0.0.2
 =========
-API Change: You most supply a config hash over straight arugments on logger creation
+API Change
+You most supply a config hash or nothing arugments on logger creation
 Resource pattern has been updated see "Usage"
-All other sugar is just he same, but backend locks has been changed around.
+All other sugar is the same as before, but backend class struct changed around a bit.
 
 Usage
 =========
@@ -19,8 +20,8 @@ Usage
 >             :include_hostname => false,
 >             :resource => "udp:/dev/log"
 >            }
-*resource = tcp:(<abs_path>|//host|//host:port)|udp:(<abs_path>|//host|//host:port)
-*include_hostname = some sysloggers seem to insert this just fine other will not
+* resource = tcp:(<abs_path>|//host|//host:port)|udp:(<abs_path>|//host|//host:port)
+* include_hostname = some sysloggers seem to insert this just fine other will not
 
 Example
 =========
